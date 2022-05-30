@@ -34,11 +34,20 @@
         "webpack-dev-server": "^3.1.14"
     },
     "dependencies": {
+        "@types/react": "^18.0.9",
+        "@types/react-dom": "^18.0.5",
+        "@types/superagent": "^4.1.15",
+        "i": "^0.3.7",
+        "ky": "^0.30.0",
+        "ky-universal": "^0.10.1",
+        "npm": "^8.11.0",
         "preact": "^10.3.2",
         "preact-render-to-string": "^5.1.4",
         "preact-router": "^4.0.1",
         "react": "^18.1.0",
-        "react-dom": "^18.1.0"
+        "react-dom": "^18.1.0",
+        "workbox-routing": "^6.5.3",
+        "workbox-strategies": "^6.5.3"
     },
     "jest": {
         "preset": "jest-preset-preact",
