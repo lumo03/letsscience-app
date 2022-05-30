@@ -1,6 +1,6 @@
 {
-  "name": "letsscience-app",
-  "short_name": "letsscience-app",
+  "name": "Let's Science our Environment",
+  "short_name": "Let's Science",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
