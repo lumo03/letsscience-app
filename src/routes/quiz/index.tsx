@@ -1,16 +1,34 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import style from './style.css'
 import ky from 'ky-universal'
 
-const Quiz = ({ id }) => {
-  const [quiz, setQuiz] = useState(null)
+interface QuizProps {
+  id: number
+}
+
+interface APIQuestion {
+  question: string
+  answers: string[]
+  correctAnswer: number
+}
+
+interface APIQuiz {
+  title: string
+  questions: APIQuestion[]
+
+}
+
+const Quiz = ({ id }: QuizProps): JSX.Element => {
+  const [quiz, setQuiz] = useState<APIQuiz|null>(null)
 
   useEffect(() => {
     ky.get(`/api/quiz?id=${id}`)
       .json()
       .then((resp) => {
-        console.log(resp)
-        setQuiz(resp)
+        setQuiz(resp as APIQuiz)
+      })
+      .catch(() => {
+        // TODO
       })
   }, [id])
 
@@ -28,11 +46,15 @@ const Quiz = ({ id }) => {
   )
 }
 
-const Question = ({ questionData }) => {
+interface QuestionProps {
+  questionData: APIQuestion
+}
+
+const Question = ({ questionData }: QuestionProps): JSX.Element => {
   const { question, answers, correctAnswer } = questionData
   const [answerText, setAnswerText] = useState('Please select an answer!')
 
-  const validateAnswer = (answerId) => {
+  const validateAnswer = (answerId: number): void => {
     if (answerId === correctAnswer) {
       setAnswerText('Correct!')
     } else {

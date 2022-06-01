@@ -7,8 +7,8 @@
         "build": "preact build",
         "serve": "sirv build --port 8080 --cors --single",
         "dev": "preact watch",
-        "lint": "standard",
-        "lint-fix": "standard --fix",
+        "lint": "ts-standard",
+        "lint-fix": "ts-standard --fix",
         "test": "jest",
         "commit": "npm run lint && npm run test"
     },
@@ -16,6 +16,8 @@
         "@babel/core": "^7.2.2",
         "@babel/preset-env": "^7.3.1",
         "@types/jest": "^27.5.1",
+        "@types/react": "^18.0.9",
+        "@types/react-dom": "^18.0.5",
         "@vercel/node": "^1.15.3",
         "babel-loader": "^8.0.5",
         "enzyme": "^3.10.0",
@@ -24,14 +26,13 @@
         "jest-preset-preact": "file:jest-preset-preact",
         "preact-cli": "^3.0.0",
         "sirv-cli": "2.0.2",
-        "standard": "^17.0.0",
+        "ts-standard": "^11.0.0",
+        "typescript": "^4.7.2",
         "webpack": "^4.29.0",
         "webpack-cli": "^3.2.1",
         "webpack-dev-server": "^3.1.14"
     },
     "dependencies": {
-        "@types/react": "^18.0.9",
-        "@types/react-dom": "^18.0.5",
         "@types/superagent": "^4.1.15",
         "i": "^0.3.7",
         "ky": "^0.30.0",
@@ -52,9 +53,10 @@
             "<rootDir>/tests/__mocks__/setupTests.js"
         ]
     },
-    "standard": {
+    "ts-standard": {
         "ignore": [
-            "jest-preset-preact"
+            "jest-preset-preact",
+            "api"
         ]
     }
 }

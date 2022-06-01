@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react'
 import style from './style.css'
 
+interface ProfileProps {
+  user: string
+}
+
 // Note: `user` comes from the URL, courtesy of our router
-const Profile = ({ user }) => {
+const Profile = ({ user }: ProfileProps): JSX.Element => {
   const [time, setTime] = useState(Date.now())
   const [count, setCount] = useState(10)
 
