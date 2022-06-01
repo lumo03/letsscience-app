@@ -15,6 +15,12 @@ npm run build
 # test the production build locally
 npm run serve
 
+# lint the project
+npm run lint
+
+# immediately fix various issues
+npm run lint-fix
+
 # run tests with jest and enzyme
 npm run test
 ```
