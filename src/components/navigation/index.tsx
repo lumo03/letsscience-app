@@ -1,8 +1,10 @@
-import { BottomNavigation, BottomNavigationAction, BottomNavigationActionProps, Paper } from '@mui/material'
-import { Restore, Favorite, LocationOn, Home, VerifiedUser, QuestionMark } from '@mui/icons-material'
+import Paper from '@mui/material/Paper'
+import BottomNavigation from '@mui/material/BottomNavigation'
+import BottomNavigationAction from '@mui/material/BottomNavigationAction'
+import Home from '@mui/icons-material/Home'
+import VerifiedUser from '@mui/icons-material/VerifiedUser'
+import QuestionMark from '@mui/icons-material/QuestionMark'
 import { useState } from 'react'
-import { Link } from "preact-router"
-import React from "react"
 
 const Navigation = (): JSX.Element => {
   const [value, setValue] = useState('')
@@ -16,15 +18,12 @@ const Navigation = (): JSX.Element => {
           setValue(newValue)
         }}
       >
-        <BottomNavigationAction href="/" label='Home' icon={<Home />} />
-        <BottomNavigationAction href="/profile" label='Profile' icon={<VerifiedUser />} />
-        <BottomNavigationAction href="/quiz" label='Quiz' icon={<QuestionMark />} />
+        <BottomNavigationAction href='/' label='Home' icon={<Home />} />
+        <BottomNavigationAction href='/profile' label='Profile' icon={<VerifiedUser />} />
+        <BottomNavigationAction href='/quiz' label='Quiz' icon={<QuestionMark />} />
       </BottomNavigation>
     </Paper>
   )
 }
-
-
-
 
 export default Navigation
