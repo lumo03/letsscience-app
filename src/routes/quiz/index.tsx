@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import style from './style.css'
+import { useEffect, useState } from 'react'
 import ky from 'ky-universal'
 
 interface QuizProps {
@@ -37,7 +36,7 @@ const Quiz = ({ id }: QuizProps): JSX.Element => {
   }
 
   return (
-    <div className={style.profile}>
+    <div>
       <h1>{quiz.title}</h1>
       {quiz.questions.map((question, index) =>
         <Question key={index} questionData={question} />

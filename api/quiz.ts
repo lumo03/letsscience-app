@@ -32,8 +32,10 @@ export default (request: VercelRequest, response: VercelResponse) => {
     return;
   }
 
+  const number_id = Number.parseInt(id);
+
   response
     .setHeader('Content-Type', 'application/json')
     .status(200)
-    .send(JSON.stringify(quizzes[id]));
+    .send(JSON.stringify(quizzes[number_id]));
 };

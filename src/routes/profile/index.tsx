@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import style from './style.css'
 
 interface ProfileProps {
   user: string
@@ -16,7 +15,7 @@ const Profile = ({ user }: ProfileProps): JSX.Element => {
   }, [])
 
   return (
-    <div className={style.profile}>
+    <div>
       <h1>Profile: {user}</h1>
       <p>This is the user profile for a user named {user}.</p>
 
