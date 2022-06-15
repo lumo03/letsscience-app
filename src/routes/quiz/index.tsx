@@ -12,9 +12,10 @@ interface APIQuestion {
 }
 
 interface APIQuiz {
+  _id: string
+  id: number
   title: string
   questions: APIQuestion[]
-
 }
 
 const Quiz = ({ id }: QuizProps): JSX.Element => {
@@ -24,7 +25,10 @@ const Quiz = ({ id }: QuizProps): JSX.Element => {
     ky.get(`/api/quiz?id=${id}`)
       .json()
       .then((resp) => {
-        setQuiz(resp as APIQuiz)
+        if (!(resp instanceof Array)) {
+          return;
+        }
+        setQuiz(resp[0] as APIQuiz)
       })
       .catch(() => {
         // TODO
