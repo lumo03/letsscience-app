@@ -1,55 +1,52 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { MongoClient } from 'mongodb'
 import connectToMongo from './_connect'
 
-const quizzes = [{
-  id: 1,
-  title: 'Mathematik',
-  questions: [
-    {
-      question: '1+2',
-      answers: ['1', '2', '3', '4'],
-      correctAnswer: 2
-    }
-  ]
-},
-{
-  id: 2,
-  title: 'Geographie',
-  questions: [
-    {
-      question: 'Wie lautet die Hauptstadt von Deutschland',
-      answers: ['Berlin', 'Köln', 'Frankfurt', 'Rom'],
-      correctAnswer: 0
-    }
-  ]
-}
-]
-
+// The main function of the quiz endpoint
 export default async (request: VercelRequest, response: VercelResponse): Promise<void> => {
-  const client = await connectToMongo()
-
+  // Choose the correct handler function based on the HTTP Method
   if (request.method === 'GET') {
-    await getQuizHandler(request, response, client)
+    await getQuizHandler(request, response)
   } else if (request.method === 'POST') {
-    await postQuizHandler(request, response, client)
+    await postQuizHandler(request, response)
   }
 }
 
-const getQuizHandler = async (request: VercelRequest, response: VercelResponse, client: MongoClient): Promise<void> => {
+const getQuizHandler = async (request: VercelRequest, response: VercelResponse): Promise<void> => {
   const { id } = request.query
 
+  // Ensure that id isn't of type string[]
   if (id instanceof Array) {
     response.status(400)
     return
   }
 
+  // Create a MongoClient
+  const client = await connectToMongo()
+  // Convert string to int
   const numberId = Number.parseInt(id)
+  // Find entry with the specified id in the 'quizzes' collection in the 'app' database
   const quiz = await client.db('app').collection('quizzes').find({ id: numberId }).toArray()
+  // Return a JSON response
   response.status(200).json(quiz)
 }
 
-const postQuizHandler = async (request: VercelRequest, response: VercelResponse, client: MongoClient): Promise<void> => {
-  await client.db('app').collection('quizzes').insertMany(quizzes)
-  response.status(200).send({})
+const postQuizHandler = async (request: VercelRequest, response: VercelResponse): Promise<VercelResponse> => {
+  // Create a MongoClient
+  const client = await connectToMongo()
+
+  // Parse the body as JSON
+  let quiz;
+  try {
+    quiz = request.body;
+  } catch {
+    return response.status(400).json({ error: 'Malformed JSON' });
+  }
+
+  // Insert the quiz into MongoDB
+  const res = await client.db('app').collection('quizzes').insertOne(quiz)
+  if (res.acknowledged) {
+    return response.status(200).send({})
+  } else {
+    return response.status(500).send({})
+  }
 }

@@ -26,7 +26,7 @@ const Quiz = ({ id }: QuizProps): JSX.Element => {
       .json()
       .then((resp) => {
         if (!(resp instanceof Array)) {
-          return;
+          return
         }
         setQuiz(resp[0] as APIQuiz)
       })
