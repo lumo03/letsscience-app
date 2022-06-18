@@ -29,7 +29,9 @@
         "@emotion/styled": "^11.8.1",
         "@mui/icons-material": "^5.8.2",
         "@mui/material": "^5.8.2",
+        "dotenv-safe": "^8.2.0",
         "firebase": "^9.8.3",
+        "firebaseui": "^6.0.1",
         "ky-universal": "^0.10.1",
         "mongodb": "^4.7.0",
         "preact": "^10.3.2",
@@ -48,7 +50,8 @@
     },
     "ts-standard": {
         "ignore": [
-            "jest-preset-preact"
+            "jest-preset-preact",
+            "functions"
         ]
     }
 }

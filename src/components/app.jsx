@@ -6,6 +6,7 @@ import Navigation from './navigation'
 import Home from '../routes/home'
 import Profile from '../routes/profile'
 import Quiz from '../routes/quiz'
+import SignInScreen from '../routes/auth'
 
 const App = () => (
   <div id='app'>
@@ -14,6 +15,7 @@ const App = () => (
       <Profile path='/profile/' user='me' />
       <Profile path='/profile/:user' />
       <Quiz path='/quiz' id='1' />
+      <SignInScreen path='/signin' />
     </Router>
     <Navigation />
   </div>

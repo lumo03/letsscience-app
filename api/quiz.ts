@@ -35,11 +35,11 @@ const postQuizHandler = async (request: VercelRequest, response: VercelResponse)
   const client = await connectToMongo()
 
   // Parse the body as JSON
-  let quiz;
+  let quiz
   try {
-    quiz = request.body;
+    quiz = request.body
   } catch {
-    return response.status(400).json({ error: 'Malformed JSON' });
+    return response.status(400).json({ error: 'Malformed JSON' })
   }
 
   // Insert the quiz into MongoDB
