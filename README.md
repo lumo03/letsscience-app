@@ -1,4 +1,26 @@
-# letsscience-app
+# Let's-Science App
+
+## Starting the development server
+
+```bash
+# install dependencies
+npm install
+npm install -g firebase-tools
+
+# build the functions
+cd functions && npm run build
+
+# start the firebase emulator
+firebase emulators:start
+```
+
+In a separate terminal:
+```bash
+# start the preact development server 
+npm run dev
+```
+
+You can now use the served app from the local preact server.
 
 ## CLI Commands
 
