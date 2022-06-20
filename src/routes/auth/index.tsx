@@ -27,22 +27,27 @@ const uiConfig = {
 const SignInScreen: React.FC = () => {
   const [isSignedIn, setIsSignedIn] = useState(false) // Local signed-in state.
 
+  const auth = firebase.auth()
+
   // Listen to the Firebase Auth state and set the local state.
   useEffect(() => {
+
+    if (process.env.NODE_ENV === 'development') {
+      auth.useEmulator('http://localhost:9099')
+    }
+
     const unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
       setIsSignedIn(!(user == null))
     })
     return () => unregisterAuthObserver() // Make sure we un-register Firebase observers when the component unmounts.
   }, [])
 
-  const auth = firebase.auth()
-
   if (!isSignedIn) {
     return (
       <div>
         <h1>My App</h1>
         <p>Please sign-in:</p>
-          <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
+        <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
       </div>
     )
   }
