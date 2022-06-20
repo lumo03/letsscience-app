@@ -1,8 +1,7 @@
 import * as functions from "firebase-functions";
-import express = require("express")
-import admin = require("firebase-admin");
+import * as express from "express"
+import { quizRouter } from "./quiz";
 
-admin.initializeApp();
 
 const app = express();
 app.get("/api/helloWorld", async (req, res) => {
@@ -12,5 +11,7 @@ app.get("/api/helloWorld", async (req, res) => {
 });
 
 const api = functions.https.onRequest(app);
+
+app.use(quizRouter)
 
 export {api};
