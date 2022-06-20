@@ -1,9 +1,16 @@
 import * as functions from "firebase-functions";
+import express = require("express")
+import admin = require("firebase-admin");
 
-// Start writing Firebase Functions
-// https://firebase.google.com/docs/functions/typescript
+admin.initializeApp();
 
-export const helloWorld = functions.https.onRequest((request, response) => {
-  functions.logger.info("Hello logs!", {structuredData: true});
-  response.send("Hello from Firebase!");
+const app = express();
+app.get("/api/helloWorld", async (req, res) => {
+  res.json({
+    message: "Hello, World!",
+  });
 });
+
+const api = functions.https.onRequest(app);
+
+export {api};

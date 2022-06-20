@@ -17,34 +17,36 @@ interface Props {
 }
 
 const StyledFirebaseAuth: React.FC<Props> = ({ uiConfig, firebaseAuth, className, uiCallback }) => {
-  const [userSignedIn, setUserSignedIn] = useState(false)
-  const elementRef = useRef(null)
+  // Pre-rendering has to be disabled to prevent https://github.com/preactjs/preact-cli/issues/1633
 
-  useEffect(() => {
-    // Get or Create a firebaseUI instance.
-    const firebaseUiWidget = (firebaseui.auth.AuthUI.getInstance() != null) || new firebaseui.auth.AuthUI(firebaseAuth)
-    if (uiConfig.signInFlow === 'popup') { firebaseUiWidget.reset() }
+    const [userSignedIn, setUserSignedIn] = useState(false)
+    const elementRef = useRef(null)
 
-    // We track the auth state to reset firebaseUi if the user signs out.
-    const unregisterAuthObserver = onAuthStateChanged(firebaseAuth, (user) => {
-      if ((user == null) && userSignedIn) { firebaseUiWidget.reset() }
-      setUserSignedIn(!(user == null))
-    })
+    useEffect(() => {
+      // Get or Create a firebaseUI instance.
+      const firebaseUiWidget = firebaseui.auth.AuthUI.getInstance() ?? new firebaseui.auth.AuthUI(firebaseAuth)
+      if (uiConfig.signInFlow === 'popup') { firebaseUiWidget.reset() }
 
-    // Trigger the callback if any was set.
-    if (uiCallback != null) { uiCallback(firebaseUiWidget) }
+      // We track the auth state to reset firebaseUi if the user signs out.
+      const unregisterAuthObserver = onAuthStateChanged(firebaseAuth, (user) => {
+        if ((user == null) && userSignedIn) { firebaseUiWidget.reset() }
+        setUserSignedIn(!(user == null))
+      })
 
-    // Render the firebaseUi Widget.
-    // @ts-expect-error
-    firebaseUiWidget.start(elementRef.current, uiConfig)
+      // Trigger the callback if any was set.
+      if (uiCallback != null) { uiCallback(firebaseUiWidget) }
 
-    return () => {
-      unregisterAuthObserver()
-      firebaseUiWidget.reset()
-    }
-  }, [firebaseui, uiConfig])
+      // Render the firebaseUi Widget.
+      // @ts-expect-error
+      firebaseUiWidget.start(elementRef.current, uiConfig)
 
-  return <div className={className} ref={elementRef} />
+      return () => {
+        unregisterAuthObserver()
+        firebaseUiWidget.reset()
+      }
+    }, [firebaseui, uiConfig])
+
+    return <div className={className} ref={elementRef} />
 }
 
 export default StyledFirebaseAuth

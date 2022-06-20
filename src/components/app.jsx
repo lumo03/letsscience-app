@@ -15,7 +15,7 @@ const App = () => (
       <Profile path='/profile/' user='me' />
       <Profile path='/profile/:user' />
       <Quiz path='/quiz' id='1' />
-      <SignInScreen path='/signin' />
+        <SignInScreen path='/signin' />
     </Router>
     <Navigation />
   </div>

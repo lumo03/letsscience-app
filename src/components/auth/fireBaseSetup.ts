@@ -10,7 +10,7 @@ import { FirebaseApp, initializeApp } from 'firebase/app'
 
 const firebaseConfig = {
 
-  apiKey: process.env.FIREBASE_APIKEY,
+  apiKey: "AIzaSyDeIc6CtnjkRx53nvguZUkEpF4oHquNM0g",
 
   authDomain: 'let-s-science.firebaseapp.com',
 
@@ -18,9 +18,9 @@ const firebaseConfig = {
 
   storageBucket: 'let-s-science.appspot.com',
 
-  messagingSenderId: process.env.FIREBASE_MESSENGERID,
+  messagingSenderId: "644249210334",
 
-  appId: process.env.FIREBASE_APPID
+  appId: "1:644249210334:web:2cb9735a51bac5af56e14f"
 
 }
 
