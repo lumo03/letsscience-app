@@ -1,7 +1,9 @@
+import { Outlet } from 'react-router'
+
 const Home = (): JSX.Element => (
   <div>
-    <h1>Home</h1>
-    <p>This is the Home component.</p>
+    <p>Home</p>
+    <Outlet />
   </div>
 )
 
