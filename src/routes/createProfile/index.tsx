@@ -11,19 +11,29 @@ import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
+import { useEffect } from 'react'
+import { Navigate } from 'react-router'
 
-const CreateProfile: React.FC = () => {
+const UpdateProfile: React.FC = () => {
+
+    const currentUser = getAuth().currentUser
+
+    // This is not required because the router checks if the user is logged in,
+    // but it also helps resolve TS issues 
+    if (!currentUser) {
+        return <Navigate to='/signin' />
+    }
+
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>): any => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
     // TODO: Better error handling
     const displayName = data.get('displayName')?.toString() as string
-    const auth = getAuth()
     // User should be logged in
-    if (auth.currentUser == null) {
+    if (currentUser == null) {
       return console.error('User is not logged in ')
     }
-    updateProfile(auth.currentUser, {
+    updateProfile(currentUser, {
       displayName: displayName
     }).catch((err) => console.log(err))
   }
@@ -39,7 +49,7 @@ const CreateProfile: React.FC = () => {
         }}
       >
         <Typography component='h1' variant='h5'>
-          Create Profile
+          Update Profile
         </Typography>
         <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
 
@@ -56,6 +66,7 @@ const CreateProfile: React.FC = () => {
             margin='normal'
             required
             fullWidth
+            defaultValue={currentUser.displayName}
             id='displayName'
             label='Display Name'
             name='displayName'
@@ -76,4 +87,4 @@ const CreateProfile: React.FC = () => {
   )
 }
 
-export default CreateProfile
+export default UpdateProfile

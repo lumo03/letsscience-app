@@ -16,7 +16,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 import { profileIsSet } from '../helper/auth'
 import SignInScreen from '../routes/auth'
-import CreateProfile from '../routes/createProfile'
+import UpdateProfile from '../routes/createProfile'
 import Home from '../routes/home'
 // Code-splitting is automated for `routes` directory
 import Profile from '../routes/profile'
@@ -56,7 +56,7 @@ const App: React.FC = () => (
           <Route path='profile' element={<Profile />} />
           <Route path='quiz' element={<Quiz id={1} />} />
           <Route path='logout' element={<LogOut />} />
-          <Route path='createProfile' element={<CreateProfile />} />
+          <Route path='createProfile' element={<UpdateProfile />} />
         </Route>
         {/* /signin should be the only open route */}
         <Route path='/signin' element={<SignInScreen />} />
