@@ -19,7 +19,6 @@ initializeApp(firebaseConfig)
 interface RedirectState {
   from: string
 }
-
 const SignInScreen: React.FC = () => {
   const [isSignedIn, setIsSignedIn] = useState(false) // Local signed-in state.
   const { from = '/profile/me' }: RedirectState = (useLocation().state as RedirectState | null) ?? { from: '/profile/me' }
@@ -39,6 +38,7 @@ const SignInScreen: React.FC = () => {
       </div>
     )
   }
+
   return (
     <Navigate to={from} />
   )

@@ -9,11 +9,14 @@ import {
   Outlet,
   Route,
   Routes,
-  useLocation
+  useLocation,
+  useNavigate
 } from 'react-router'
 import { BrowserRouter } from 'react-router-dom'
 
+import { profileIsSet } from '../helper/auth'
 import SignInScreen from '../routes/auth'
+import CreateProfile from '../routes/createProfile'
 import Home from '../routes/home'
 // Code-splitting is automated for `routes` directory
 import Profile from '../routes/profile'
@@ -27,9 +30,15 @@ const RequireAuth: React.FC = () => {
   if (getApps().length === 0) {
     initializeFirebase()
   }
+
+  // Force user to sign in
   if (getAuth().currentUser == null) {
-    console.log(location)
     return <Navigate to='/signin' replace state={{ from: location.pathname }} />
+  }
+
+  // Force new users to create a profile
+  if (!profileIsSet()) {
+    useNavigate()('/createProfile')
   }
 
   return <><Outlet /><Navigation /></>
@@ -40,13 +49,16 @@ const App: React.FC = () => (
   <div id='app'>
     <BrowserRouter>
       <Routes>
+        {/* Protected routes */}
         <Route path='/' element={<RequireAuth />}>
           <Route path='home' element={<Home />} />
           <Route path='profile/:user' element={<Profile />} />
           <Route path='profile' element={<Profile />} />
           <Route path='quiz' element={<Quiz id={1} />} />
           <Route path='logout' element={<LogOut />} />
+          <Route path='createProfile' element={<CreateProfile />} />
         </Route>
+        {/* /signin should be the only open route */}
         <Route path='/signin' element={<SignInScreen />} />
       </Routes>
     </BrowserRouter>

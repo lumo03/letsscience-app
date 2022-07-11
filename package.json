@@ -36,6 +36,7 @@
         "preact": "^10.3.2",
         "preact-render-to-string": "^5.1.4",
         "react": "^18.1.0",
+        "react-jazzicon": "^1.0.4",
         "react-router": "^6.3.0",
         "react-router-dom": "^6.3.0",
         "workbox-routing": "^6.5.3",
