@@ -18,7 +18,6 @@ import { profileIsSet } from '../helper/auth'
 import SignInScreen from '../routes/auth'
 import UpdateProfile from '../routes/createProfile'
 import Home from '../routes/home'
-// Code-splitting is automated for `routes` directory
 import Profile from '../routes/profile'
 import Quiz from '../routes/quiz'
 import { initializeFirebase } from './auth/fireBaseSetup'

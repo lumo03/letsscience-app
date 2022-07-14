@@ -5,24 +5,22 @@ import {
   updateProfile
 } from 'firebase/auth'
 import Jazzicon from 'react-jazzicon'
+import { Navigate } from 'react-router'
 
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
-import { useEffect } from 'react'
-import { Navigate } from 'react-router'
 
 const UpdateProfile: React.FC = () => {
+  const currentUser = getAuth().currentUser
 
-    const currentUser = getAuth().currentUser
-
-    // This is not required because the router checks if the user is logged in,
-    // but it also helps resolve TS issues 
-    if (!currentUser) {
-        return <Navigate to='/signin' />
-    }
+  // This is not required because the router checks if the user is logged in,
+  // but it also helps resolve TS issues
+  if (currentUser == null) {
+    return <Navigate to='/signin' />
+  }
 
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>): any => {
     event.preventDefault()

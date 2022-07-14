@@ -39,7 +39,7 @@ router.post('/api/quiz', (req, resp) => {
 })
 
 router.delete('/api/quiz', (req, resp) => {
-    store.collection('quizzes')
+  store.collection('quizzes')
 })
 
 export { router as quizRouter }
