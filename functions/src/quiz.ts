@@ -1,8 +1,9 @@
 import * as express from 'express'
+import { isLoggedIn } from './auth'
 import { store } from './initFirestore'
 const router = express.Router() // eslint-disable-line max-len
 
-router.get('/api/quiz/:id', (req, resp): void => {
+router.get('/api/quiz/:id', isLoggedIn, (req, resp): void => {
   const parsed = parseInt(req.params.id)
 
   if (isNaN(parsed)) {
