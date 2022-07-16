@@ -3,40 +3,17 @@ import {
   useState
 } from 'react'
 
-import ky from 'ky-universal'
+import { APIQuestion, APIQuiz, getQuiz } from '../../client'
 
 interface QuizProps {
   id: number
-}
-
-interface APIQuestion {
-  question: string
-  answers: string[]
-  correctAnswer: number
-}
-
-interface APIQuiz {
-  _id: string
-  id: number
-  title: string
-  questions: APIQuestion[]
 }
 
 const Quiz = ({ id }: QuizProps): JSX.Element => {
   const [quiz, setQuiz] = useState<APIQuiz|null>(null)
 
   useEffect(() => {
-    ky.get(`/api/quiz?id=${id}`)
-      .json()
-      .then((resp) => {
-        if (!(resp instanceof Array)) {
-          return
-        }
-        setQuiz(resp[0] as APIQuiz)
-      })
-      .catch(() => {
-        // TODO
-      })
+    getQuiz(4).then((resp) => setQuiz(resp))
   }, [id])
 
   if (quiz == null) {
@@ -58,6 +35,7 @@ interface QuestionProps {
 }
 
 const Question = ({ questionData }: QuestionProps): JSX.Element => {
+  console.log(questionData)
   const { question, answers, correctAnswer } = questionData
   const [answerText, setAnswerText] = useState('Please select an answer!')
 
@@ -65,14 +43,14 @@ const Question = ({ questionData }: QuestionProps): JSX.Element => {
     if (answerId === correctAnswer) {
       setAnswerText('Correct!')
     } else {
-      setAnswerText(`False! The correct answer is: ${answers[correctAnswer]}`)
+      setAnswerText(`False! The correct answer is: ${answers[correctAnswer].answer}`)
     }
   }
 
   return (
     <>
       <h5>{question}</h5>
-      {answers.map((answer, index) =>
+      {answers.map(({answer}, index) => 
         <button key={index} onClick={() => validateAnswer(index)}>{answer}</button>
       )}
       <p>{answerText}</p>

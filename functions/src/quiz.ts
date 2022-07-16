@@ -2,10 +2,22 @@ import * as express from 'express'
 import { store } from './initFirestore'
 const router = express.Router() // eslint-disable-line max-len
 
-router.get('/api/quiz/:id', (req, resp) => {
+router.get('/api/quiz/:id', (req, resp): void => {
+  const parsed = parseInt(req.params.id)
+
+  if (isNaN(parsed)) {
+    resp.status(400).send()
+    return
+  }
+
+  if (parsed < 0) {
+    resp.status(422).send()
+    return
+  }
+
   store
     .collection('quizzes')
-    .where('id', '==', req.params.id)
+    .where('id', '==', parseInt(req.params.id))
     .get()
     .then((query) => {
       if (!query.empty) {
