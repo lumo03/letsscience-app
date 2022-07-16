@@ -10,8 +10,10 @@ const profileIsSet = (): boolean => {
   // eslint-disable-next-line @typescript-eslint/prefer-optional-chain
   return user != null &&
     user.displayName != null &&
-    user.photoURL != null &&
-    user.displayName.length > 0 && user.photoURL.length > 0
+    user.displayName.length > 0
+    // TODO: implement photoURL
+    // user.photoURL != null &&
+    // user.photoURL.length > 0
 }
 
 export { isNewUser, profileIsSet }

@@ -9,8 +9,7 @@ import {
   Outlet,
   Route,
   Routes,
-  useLocation,
-  useNavigate
+  useLocation
 } from 'react-router'
 import { BrowserRouter } from 'react-router-dom'
 
@@ -37,7 +36,8 @@ const RequireAuth: React.FC = () => {
 
   // Force new users to create a profile
   if (!profileIsSet()) {
-    useNavigate()('/createProfile')
+    window.history.replaceState(null, '', '/createProfile')
+    return <UpdateProfile />
   }
 
   return <><Outlet /><Navigation /></>

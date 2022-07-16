@@ -1,4 +1,4 @@
-import axios, { Axios, AxiosInstance } from 'axios'
+import axios, { AxiosInstance } from 'axios'
 import { getAuth } from 'firebase/auth'
 
 const getClient = async (): Promise<AxiosInstance> => {
@@ -12,8 +12,8 @@ const getClient = async (): Promise<AxiosInstance> => {
 }
 
 export interface APIAnswer {
-  id: number,
-  answer: number,
+  id: number
+  answer: number
 }
 
 export interface APIQuestion {
@@ -30,7 +30,7 @@ export interface APIQuiz {
 }
 
 const getQuiz = async (id: number): Promise<APIQuiz> => {
-  let resp = (await getClient()).get(`api/quiz/${id}`)
+  const resp = (await getClient()).get(`api/quiz/${id}`)
   return (await resp).data
 }
 

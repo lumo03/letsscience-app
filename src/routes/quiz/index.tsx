@@ -3,7 +3,11 @@ import {
   useState
 } from 'react'
 
-import { APIQuestion, APIQuiz, getQuiz } from '../../client'
+import {
+  APIQuestion,
+  APIQuiz,
+  getQuiz
+} from '../../client'
 
 interface QuizProps {
   id: number
@@ -13,7 +17,7 @@ const Quiz = ({ id }: QuizProps): JSX.Element => {
   const [quiz, setQuiz] = useState<APIQuiz|null>(null)
 
   useEffect(() => {
-    getQuiz(4).then((resp) => setQuiz(resp))
+    getQuiz(4).then((resp) => setQuiz(resp)).catch((err) => console.log(err))
   }, [id])
 
   if (quiz == null) {
@@ -35,7 +39,6 @@ interface QuestionProps {
 }
 
 const Question = ({ questionData }: QuestionProps): JSX.Element => {
-  console.log(questionData)
   const { question, answers, correctAnswer } = questionData
   const [answerText, setAnswerText] = useState('Please select an answer!')
 
@@ -50,7 +53,7 @@ const Question = ({ questionData }: QuestionProps): JSX.Element => {
   return (
     <>
       <h5>{question}</h5>
-      {answers.map(({answer}, index) => 
+      {answers.map(({ answer }, index) =>
         <button key={index} onClick={() => validateAnswer(index)}>{answer}</button>
       )}
       <p>{answerText}</p>

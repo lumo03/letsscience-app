@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useState } from 'react'
 
 import {
   getAuth,
@@ -22,6 +23,13 @@ const UpdateProfile: React.FC = () => {
     return <Navigate to='/signin' />
   }
 
+  const [displayName, setDisplayName] = useState<string>(currentUser.displayName ?? '')
+  const [submitted, setSubmitted] = useState<boolean>(false)
+
+  if (submitted) {
+    return <Navigate to='/' />
+  }
+
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>): any => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
@@ -33,7 +41,9 @@ const UpdateProfile: React.FC = () => {
     }
     updateProfile(currentUser, {
       displayName: displayName
-    }).catch((err) => console.log(err))
+    })
+      .then(() => setSubmitted(true))
+      .catch((err) => console.log(err))
   }
 
   return (
@@ -64,7 +74,8 @@ const UpdateProfile: React.FC = () => {
             margin='normal'
             required
             fullWidth
-            defaultValue={currentUser.displayName}
+            value={displayName}
+            onChange={(e) => setDisplayName(e.target.value)}
             id='displayName'
             label='Display Name'
             name='displayName'
