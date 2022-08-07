@@ -36,7 +36,9 @@ const initializeFirebase = (): void => {
   const app = initializeApp(firebaseConfig)
   const auth = getAuth(app)
   if (process.env.NODE_ENV === 'development') {
-    connectAuthEmulator(auth, 'http://localhost:9099')
+    connectAuthEmulator(auth, 'http://localhost:9099', {
+      disableWarnings: true
+    })
   }
 }
 

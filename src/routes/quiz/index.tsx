@@ -8,6 +8,15 @@ import {
   Quiz,
   QuizQuestion
 } from '@let-s-science/api-types/types'
+import {
+  Button,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+  Stack
+} from '@mui/material'
 
 import { getQuiz } from '../../client'
 
@@ -27,12 +36,17 @@ const QuizPage = ({ id }: QuizProps): JSX.Element => {
   }
 
   return (
-    <div>
+    <Stack
+      direction='column'
+      justifyContent='center'
+      alignItems='center'
+      spacing={2}
+    >
       <h1>{quiz.title}</h1>
       {quiz.questions.map((question, index) =>
         <Question key={index} questionData={question} />
       )}
-    </div>
+    </Stack>
   )
 }
 
@@ -43,23 +57,44 @@ interface QuestionProps {
 const Question = ({ questionData }: QuestionProps): JSX.Element => {
   const { question, answers, correctAnswer } = questionData
   const [answerText, setAnswerText] = useState('Please select an answer!')
+  const [answerId, setAnswerId] = useState<number|null>(null)
 
-  const validateAnswer = (answerId: number): void => {
+  const validateAnswer = (): void => {
+    if (answerId === null) {
+      setAnswerText('Please select an answer!')
+      return
+    }
     if (answerId === correctAnswer) {
       setAnswerText('Correct!')
     } else {
-      setAnswerText(`False! The correct answer is: ${answers[correctAnswer].answer}`)
+      const corr = answers.filter(a => a.id === correctAnswer)[0]
+      setAnswerText(`False! The correct answer is: ${corr.answer}`)
     }
   }
 
   return (
-    <>
-      <h5>{question}</h5>
-      {answers.map(({ answer }, index) =>
-        <button key={index} onClick={() => validateAnswer(index)}>{answer}</button>
-      )}
+    <Stack
+      direction='column'
+      justifyContent='center'
+      alignItems='center'
+      spacing={2}
+    >
+      <FormControl>
+        <FormLabel id='quiz-radio-buttons-group-label'>{question}</FormLabel>
+        <RadioGroup
+          aria-labelledby='quiz-radio-buttons-group-label'
+          name='radio-buttons-group'
+        >
+          {answers.map(({ answer, id }, index) =>
+            <FormControlLabel onClick={() => setAnswerId(id)} key={index} value={answer} control={<Radio />} label={answer} />
+          )}
+        </RadioGroup>
+      </FormControl>
+      <Button onClick={validateAnswer}>
+        Submit
+      </Button>
       <p>{answerText}</p>
-    </>
+    </Stack>
   )
 }
 

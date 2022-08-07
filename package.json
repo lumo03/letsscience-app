@@ -45,7 +45,9 @@
     "ignore": [
       "functions/src/validate_schema.js",
       "types",
-      "gulpfile.js"
+      "gulpfile.js",
+      "cypress",
+      "cypress.config.ts"
     ]
   }
 }
