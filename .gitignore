@@ -28,6 +28,7 @@ dev-dist
 # Compiled JavaScript files
 functions/lib
 types/lib
+types/schemas
 
 # TypeScript v1 declaration files
 typings
