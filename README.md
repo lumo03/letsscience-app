@@ -5,10 +5,11 @@
 ```bash
 # install dependencies
 npm install
+cd functions && npm install
 npm install -g firebase-tools
 
 # build the functions
-cd functions && npm run build
+npm run functions:build
 
 # start the firebase emulator
 firebase emulators:start
