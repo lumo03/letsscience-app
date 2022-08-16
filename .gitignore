@@ -32,3 +32,6 @@ types/schemas
 
 # TypeScript v1 declaration files
 typings
+build
+.vercel
+size-plugin.json
