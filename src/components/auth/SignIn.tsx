@@ -1,3 +1,5 @@
+import React from 'react'
+
 import {
   AuthError,
   createUserWithEmailAndPassword,
@@ -22,7 +24,7 @@ import SocialLogins from './SocialLogins'
 
 initializeFirebase()
 
-const SignIn: React.FC = () => {
+function SignIn (): JSX.Element {
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>): any => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)

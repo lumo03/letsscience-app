@@ -7,11 +7,14 @@
     "tsc": "tsc",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "ts-standard",
-    "lint-fix": "format-imports ./src && ts-standard --fix",
+    "lint": "ts-standard && npm run functions:lint",
+    "lint:fix": "format-imports ./src && ts-standard --fix && npm run functions:lint:fix",
     "types:generate": "mv types types.BAK && mkdir types && cp types.BAK/types.ts types/ && gulp --color --gulpfile gulpfile.js build_types && cp -rf types/schemas types.BAK/schemas && rm -rf types && mv types.BAK types ",
     "types:build": "npm run types:generate && cd types && npm run build && cd ..",
-    "functions:build": "npm run types:build && cd functions && npm run build && cd .."
+    "functions:build": "npm run types:build && cd functions && npm run build && cd ..",
+    "functions:lint": "cd functions && npm run lint && cd ..",
+    "functions:lint:fix": "cd functions && npm run lint:fix && cd .."
+
   },
   "dependencies": {
     "@emotion/react": "^11.9.3",
@@ -42,9 +45,15 @@
     "vite-plugin-pwa": "^0.12.3"
   },
   "ts-standard": {
+    "project": [
+      "tsconfig.json",
+      "types/tsconfig.json",
+      "functions/tsconfig.json"
+    ],
     "ignore": [
-      "functions/src/validate_schema.js",
-      "types",
+      "functions",
+      "types/lib",
+      "types/schemas",
       "gulpfile.js",
       "cypress",
       "cypress.config.ts"

@@ -1,38 +1,33 @@
-import {ValidateFunction, ErrorObject} from "ajv";
-import * as validations from './schemas/validations';
-import { Quiz } from "./types";
+import { ValidateFunction, ErrorObject } from 'ajv'
+import * as validations from './schemas/validations'
+import { Quiz } from './types'
 
 class TypeError extends Error {
-  public ajvErrors: ErrorObject[];
-  constructor(ajvErrors: ErrorObject[]) {
-    super(JSON.stringify(ajvErrors));
-    this.name = "TypeError";
-    this.ajvErrors = ajvErrors;
+  public ajvErrors: ErrorObject[]
+  constructor (ajvErrors: ErrorObject[]) {
+    super(JSON.stringify(ajvErrors))
+    this.name = 'TypeError'
+    this.ajvErrors = ajvErrors
   }
 }
 
-export function ensureType<T>(
+export function ensureType<T> (
   validationFunc: ((data: any, { instancePath, parentData, parentDataProperty, rootData }?: {
-    instancePath?: string;
-    parentData: any;
-    parentDataProperty: any;
-    rootData?: any;
+    instancePath?: string
+    parentData: any
+    parentDataProperty: any
+    rootData?: any
   }) => boolean),
-  data: T): T
-{
-  const validate = validationFunc as ValidateFunction<T>;
-  if(!validate)
-    throw new Error("Validate not defined, schema not found");
+  data: T): T {
+  const validate = validationFunc as ValidateFunction<T>
+  if (!validate) { throw new Error('Validate not defined, schema not found') } // eslint-disable-line @typescript-eslint/strict-boolean-expressions
 
-  /* Casting to and from JSON forces the object to be represented in its primitive types.
-   *  The Date object for example will be forced to a ISO 8601 representation which is what we want */
-  const isValid = validate(JSON.parse(JSON.stringify(data)));
-  if(!isValid)
-    throw new TypeError(validate.errors!);
+  const isValid = validate(JSON.parse(JSON.stringify(data)))
+  if (!isValid) { throw new TypeError(validate.errors!) } // eslint-disable-line @typescript-eslint/no-non-null-assertion
 
-  return data;
+  return data
 }
 
-export const isQuiz = (data: any) => {
-    return ensureType<Quiz>(validations.Quiz, data)
+export const isQuiz = (data: any): Quiz => {
+  return ensureType<Quiz>(validations.Quiz, data)
 }

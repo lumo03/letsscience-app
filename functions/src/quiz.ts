@@ -39,7 +39,8 @@ router.post('/api/quiz', isLoggedIn, (req, resp): void => {
   try {
     isQuiz(req.body)
   } catch {
-    resp.status(400).send()
+    resp.status(400)
+      .send()
     console.log('Invalid request')
     return
   }
