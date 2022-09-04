@@ -21,7 +21,7 @@ router.get('/api/quiz/:id', isLoggedIn, (req, resp): void => {
 
   store
     .collection('quizzes')
-    .where('id', '==', parseInt(req.params.id))
+    .where('id', '==', req.params.id)
     .get()
     .then((query) => {
       if (!query.empty) {

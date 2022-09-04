@@ -4,8 +4,9 @@
 
 ```bash
 # install dependencies
+sudo apt install openjdk-18-jre
 npm install
-cd functions && npm install
+cd functions && npm install && cd ..
 npm install -g firebase-tools
 
 # build the functions
