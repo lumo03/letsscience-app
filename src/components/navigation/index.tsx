@@ -8,6 +8,7 @@ import VerifiedUser from '@mui/icons-material/VerifiedUser'
 import BottomNavigation from '@mui/material/BottomNavigation'
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
 import Paper from '@mui/material/Paper'
+import GroupIcon from '@mui/icons-material/Group';
 
 const Navigation = (): JSX.Element => {
   const [value, setValue] = useState('')
@@ -24,6 +25,7 @@ const Navigation = (): JSX.Element => {
         <BottomNavigationAction to='/home' label='Home' icon={<Home />} component={Link} />
         <BottomNavigationAction to='/profile' label='Profile' icon={<VerifiedUser />} component={Link} />
         <BottomNavigationAction to='/quiz' label='Quiz' icon={<QuestionMark />} component={Link} />
+        <BottomNavigationAction to='/friends' label='Friends' icon={<GroupIcon />} component={Link} />
       </BottomNavigation>
     </Paper>
   )

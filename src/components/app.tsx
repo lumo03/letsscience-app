@@ -22,6 +22,7 @@ import QuizPage from '../routes/quiz'
 import { initializeFirebase } from './auth/fireBaseSetup'
 import LogOut from './auth/LogOut'
 import Navigation from './navigation'
+import FriendsPage from '../routes/friends'
 
 const RequireAuth: React.FC = () => {
   const location = useLocation()
@@ -56,6 +57,7 @@ const App: React.FC = () => (
           <Route path='quiz' element={<QuizPage id={1} />} />
           <Route path='logout' element={<LogOut />} />
           <Route path='createProfile' element={<UpdateProfile />} />
+          <Route path='friends' element={<FriendsPage />} />
         </Route>
         {/* /signin should be the only open route */}
         <Route path='/signin' element={<SignInScreen />} />
